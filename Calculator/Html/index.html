@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Calculator</title>
+  <!-- https://github.com/farhodxakimov24 -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #calculator {
+      border: 2px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    button {
+      width: 48px;
+      height: 48px;
+      font-size: 18px;
+      margin: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="calculator">
+  <input type="text" id="display" readonly>
+  <br>
+
+  <button onclick="appendValue('1')">1</button>
+  <button onclick="appendValue('2')">2</button>
+  <button onclick="appendValue('3')">3</button>
+  <button onclick="setOperator('+')">+</button>
+  <br>
+
+  <button onclick="appendValue('4')">4</button>
+  <button onclick="appendValue('5')">5</button>
+  <button onclick="appendValue('6')">6</button>
+  <button onclick="setOperator('-')">-</button>
+  <br>
+
+  <button onclick="appendValue('7')">7</button>
+  <button onclick="appendValue('8')">8</button>
+  <button onclick="appendValue('9')">9</button>
+  <button onclick="setOperator('*')">*</button>
+  <br>
+
+  <button onclick="appendValue('0')">0</button>
+  <button onclick="clearDisplay()">C</button>
+  <button onclick="calculateResult()">=</button>
+  <button onclick="setOperator('/')">/</button>
+</div>
+
+<script>
+  let currentValue = '';
+  let operator = '';
+  let display = document.getElementById('display');
+
+  function appendValue(value) {
+    currentValue += value;
+    display.value = currentValue;
+  }
+
+  function setOperator(op) {
+    operator = op;
+    currentValue += ' ' + op + ' ';
+    display.value = currentValue;
+  }
+
+  function clearDisplay() {
+    currentValue = '';
+    operator = '';
+    display.value = '';
+  }
+
+  function calculateResult() {
+    const values = currentValue.split(' ');
+    const num1 = parseFloat(values[0]);
+    const num2 = parseFloat(values[2]);
+    let result = 0;
+
+    switch (operator) {
+      case '+':
+        result = num1 + num2;
+        break;
+      case '-':
+        result = num1 - num2;
+        break;
+      case '*':
+        result = num1 * num2;
+        break;
+      case '/':
+        result = num1 / num2;
+        break;
+    }
+
+    display.value = result;
+    currentValue = result.toString();
+    operator = '';
+  }
+</script>
+
+</body>
+</html>
